@@ -1,7 +1,7 @@
 # Docker archi for wordpress
 
 - Apache
-- Php 7.2
+- Php 7.4
 - MySQL
 - PhpMyAdmin
 - Wordpress

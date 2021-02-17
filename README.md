@@ -4,7 +4,7 @@
 - Php 7.4
 - MySQL
 - PhpMyAdmin
-- Wordpress
+- Wordpress 5.6.1
 - MailHog
 
 ## Requirements

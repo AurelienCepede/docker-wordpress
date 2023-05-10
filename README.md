@@ -1,10 +1,10 @@
 # Docker archi for wordpress
 
 - Apache
-- Php 7.4
+- Php 8.1
 - MySQL
 - PhpMyAdmin
-- Wordpress 5.6.1
+- Wordpress 6.2
 - MailHog
 
 ## Requirements

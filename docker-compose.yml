@@ -3,7 +3,6 @@ version: '3.1'
 services:
   web:
     build: ./wp-config/
-    restart: always
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_NAME: ${DB_NAME}
@@ -21,17 +20,17 @@ services:
         '--character-set-server=utf8mb4',
         '--collation-server=utf8mb4_unicode_ci'
     ]
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - ./datamysql:/var/lib/mysql
+      - ./db:/var/lib/mysql
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    restart: always
+    volumes:
+      - ./wp-config/phpmyadmin.ini:/usr/local/etc/php/conf.d/php-phpmyadmin.ini
     ports:
         - "8080:80"
     links:

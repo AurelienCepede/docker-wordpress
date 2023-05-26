@@ -1,5 +1,9 @@
 include .env
-start:
+
+build-web:
+	docker build -t ${DOCKER_IMAGE_WEB} ./wp-config
+
+start: build-web
 	docker-compose up -d
 
 stop:

@@ -1,3 +1,4 @@
+include .env
 start:
 	docker-compose up -d
 
@@ -16,3 +17,25 @@ update_all_wp:
 clean:
 	docker-compose down
 	sudo rm -R www datamysql
+
+wp-install-core:
+	docker-compose exec web wp --allow-root core install \
+		--url="${WP_URL}" \
+		--title="${WP_TITLE}" \
+		--admin_user="${WP_USERNAME}" \
+		--admin_password="${WP_PASS}" \
+		--admin_email="${WP_EMAIL}" \
+		--locale="${WP_LOCAL}" \
+		--skip-email
+
+wp-install-plugins:
+	docker-compose exec web wp --allow-root plugin delete --all
+	docker-compose exec web wp --allow-root plugin install ${WP_PLUGINS} --activate
+
+wp-install-theme:
+	docker-compose exec web wp --allow-root theme \
+		install ${WP_THEME} --activate
+	docker-compose exec web wp --allow-root theme \
+		delete $$(docker-compose exec web wp theme --allow-root list --status=inactive --field=name)
+
+wp-install: wp-install-core wp-install-plugins wp-install-theme

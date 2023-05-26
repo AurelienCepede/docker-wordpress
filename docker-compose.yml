@@ -11,6 +11,7 @@ services:
     volumes:
       - ./wp-config/php-config.ini:/usr/local/etc/php/conf.d/conf.ini
       - ./www:/var/www/html
+      - ./plugins:/var/plugins
     ports:
       - "80:80"
   db:

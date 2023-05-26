@@ -16,7 +16,7 @@ update_all_wp:
 
 clean:
 	docker-compose down
-	sudo rm -R www datamysql
+	sudo rm -R www db
 
 wp-install-core:
 	docker-compose exec web wp --allow-root core install \
@@ -38,4 +38,10 @@ wp-install-theme:
 	docker-compose exec web wp --allow-root theme \
 		delete $$(docker-compose exec web wp theme --allow-root list --status=inactive --field=name)
 
-wp-install: wp-install-core wp-install-plugins wp-install-theme
+god-mod:
+	docker-compose exec web chmod -R 777 ./
+
+wp-install: wp-install-core wp-install-plugins wp-install-theme god-mod
+
+deactivate-disposable-plugins:
+	docker-compose exec web wp --allow-root plugin deactivate acf-content-analysis-for-yoast-seo wp-rocket secupress-pro really-simple-ssl post-smtp
